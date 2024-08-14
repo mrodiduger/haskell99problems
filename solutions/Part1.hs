@@ -49,3 +49,25 @@ myReverse = foldl flippedCons []
 
 isPalindrome :: (Eq a) => [a] -> Bool
 isPalindrome l = myReverse l == l
+
+-- Problem 7
+-- Flatten a nested list structure.
+
+data NestedList a
+  = Elem a
+  | List [NestedList a]
+
+myFlatten :: NestedList a -> [a]
+myFlatten (Elem x) = [x]
+myFlatten (List x) = concatMap myFlatten x
+
+-- Problem 8
+-- Eliminate consecutive duplicates of list elements.
+
+compressAcc :: (Eq a) => [a] -> [a] -> [a]
+compressAcc acc [] = reverse acc
+compressAcc acc l = if head acc == head l then compressAcc acc (tail l) else compressAcc (head l : acc) (tail l)
+
+compress :: (Eq a) => [a] -> [a]
+compress [] = []
+compress l = compressAcc [head l] (tail l)
